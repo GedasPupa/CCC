@@ -50,3 +50,44 @@ const validateCred = arr => {
 // console.log(validateCred(invalid5));
 // console.log(validateCred(mystery1));
 
+// --- function 'findInvalidCards' ---
+
+const findInvalidCards = nestArr => {
+    let arrInv = [];
+    for (ind=0; ind<nestArr.length; ind++) {
+        let ch = validateCred(nestArr[ind]);
+        let value = [nestArr[ind]];
+        // console.log(ch);
+
+        if (!ch) {
+            // console.log(nestArr[ind]);
+        arrInv.push(nestArr[ind]);
+        };
+    };
+    return arrInv;
+};
+
+// --- function 'idInvalidCardCompanies' ---
+const idInvalidCardCompanies = arrInvalid => {
+    let invComp = [];
+    for (i=0; i<arrInvalid.length; i++) {
+        if (arrInvalid[i][0]===3 && !invComp.includes('Amex')) {
+            invComp.push('Amex');
+        } else if (arrInvalid[i][0]===4 && !invComp.includes('Visa')) {
+            invComp.push('Visa');
+        } else if (arrInvalid[i][0]===5 && !invComp.includes('Mastercard')) {
+            invComp.push('Mastercard');
+        } else if (arrInvalid[i][0]===6 && !invComp.includes('Discover')) {
+            invComp.push('Discover');
+        } else if (arrInvalid[i][0]!==3 && arrInvalid[i][0]!==4 && arrInvalid[i][0]!==5 && arrInvalid[i][0]!==6) {
+            console.log(`index - ${i} - Company not found`);
+        } else if (invComp.includes('Visa') && invComp.includes('Amex') && invComp.includes('Mastercard') && invComp.includes('Discover')) {
+            console.log(`index - ${i} - Company already added`);
+        }
+    };
+    return invComp;
+};
+
+const arrInv2 = findInvalidCards(batch);
+console.log(idInvalidCardCompanies(arrInv2));
+console.log(arrInv2);
